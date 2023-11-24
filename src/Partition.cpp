@@ -3,6 +3,7 @@
 #include <iterator>
 #include <numeric>
 #include <string>
+#include <sstream>
 
 
 part::Partition::Partition(std::size_t id)
@@ -106,11 +107,9 @@ auto part::Partition::externalDegree(const std::vector<Partition>& parts) const
 auto part::Partition::toString() const
     -> std::string
 {
-    return std::accumulate(std::cbegin(_nodes),
-                           std::cend(_nodes),
-                           "id:" + std::to_string(_id) + "\nnodes:\n",
-                           [](auto init, auto node) {
-                               auto node_str = std::to_string(node) + "\n";
-                               return init + std::move(node_str);
-                           });
+    std::stringstream ss;
+    for (const auto& num : _nodes) {
+        ss << num << '\n';
+    }
+    return ss.str();
 }
