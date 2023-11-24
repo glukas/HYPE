@@ -215,8 +215,9 @@ auto main(int argc, char const* argv[])
             auto filename = input_path + "_partition_" + std::to_string(i);
             auto part_content = parts[i].toString();
 
-            std::ofstream out{filename};
+            std::ofstream out(filename, std::ofstream::out);
             out << part_content;
+            out.close();
         }
 
         std::cout
