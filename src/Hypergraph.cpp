@@ -3,7 +3,7 @@
 #include <numeric>
 #include <random>
 #include <vector>
-
+#include <cstdint>
 
 auto part::Hypergraph::addVertex(int64_t id)
     -> std::pair<part::Hypergraph::VertexMapIter, bool>
