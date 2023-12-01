@@ -11,10 +11,19 @@ if(USE_CLANG)
 endif(USE_CLANG)
 
 project(HYPE CXX C)
-
 ############################
 ###Compiler flags
 ############################
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
+    # Commands for macOS with ARM64 architecture
+    message(STATUS "Configuring on macOS with ARM64 architecture")
+    set(CMAKE_OSX_ARCHITECTURES arm64)
+endif()
+
+
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -std=c++17 -march=native -ferror-limit=2 -Wall")
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
@@ -23,6 +32,9 @@ endif()
 
 #build compilation database, needed for autocompletion in emacs
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+#enable new IN_LIST policy
+cmake_policy(SET CMP0057 NEW)
 
 #link static
 set(Boost_USE_STATIC_LIBS   ON)
